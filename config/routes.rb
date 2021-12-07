@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   
-  resources :tabs, only: [:index, :show, :create, :update]
-  resources :items, only: [:index, :show, :create, :update]
+  resources :usertabs, only: [:index,:create]
+  resources :tabs, only: [:index, :show, :create, :update, :destroy]
+  resources :items, only: [:index, :show, :create, :update, :destroy]
   resources :users, only: [:index, :create, :destroy]
   # Routing logic: fallback requests for React Router.
   # Leave this here to help deploy your app later!

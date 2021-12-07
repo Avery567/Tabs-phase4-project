@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_06_214237) do
+ActiveRecord::Schema.define(version: 2021_12_07_162511) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,17 +20,18 @@ ActiveRecord::Schema.define(version: 2021_12_06_214237) do
     t.float "price"
     t.boolean "completed"
     t.bigint "tab_id"
+    t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["tab_id"], name: "index_items_on_tab_id"
+    t.index ["user_id"], name: "index_items_on_user_id"
   end
 
   create_table "tabs", force: :cascade do |t|
     t.string "name"
-    t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_tabs_on_user_id"
+    t.boolean "completed"
   end
 
   create_table "users", force: :cascade do |t|
@@ -40,6 +41,15 @@ ActiveRecord::Schema.define(version: 2021_12_06_214237) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "password_digest"
+  end
+
+  create_table "usertabs", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "tab_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["tab_id"], name: "index_usertabs_on_tab_id"
+    t.index ["user_id"], name: "index_usertabs_on_user_id"
   end
 
 end

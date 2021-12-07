@@ -2,9 +2,11 @@ class User < ApplicationRecord
     has_secure_password 
 
     has_many :items
-    has_many :tabs, through: :items
+    has_many :usertabs
+    has_many :tabs, through: :usertabs
 
-    validates :full_name, presence: true, uniqueness: true
+
+    validates :full_name, presence: true
     validates :email, format: /\w+@\w+\.{1}[a-zA-Z]{2,}/, presence: true, uniqueness: true
     validates :password, presence: true, confirmation: true, length: { in: 13..40 }
 
