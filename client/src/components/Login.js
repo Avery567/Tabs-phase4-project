@@ -1,12 +1,14 @@
 import { Button, Modal, Form, Input } from 'antd';
 import { useState } from 'react';
 
-function Login() {
+function Login({ onLogin }) {
     const [isLoginVisible, setLoginVisible] = useState(false)
     const [loginInfo, setLoginInfo] = useState({
         username: "",
         password: ""
     })
+    const [isLoading, setIsLoading] = useState(false);
+    const [errors, setErrors] = useState([]);
     function showLogin() {
         setLoginVisible(true)
     }
@@ -14,7 +16,20 @@ function Login() {
         setLoginVisible(false)
     }
     function handleSubmit() {
-        console.log("yes")
+        fetch("/login", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(loginInfo),
+          }).then((r) => {
+            setIsLoading(false);
+            if (r.ok) {
+              r.json().then((user) => onLogin(user));
+            } else {
+              r.json().then((err) => setErrors(err.errors));
+            }
+          });
     }
     function handleInputChange(e) {
         setLoginInfo({

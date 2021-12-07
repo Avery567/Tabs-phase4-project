@@ -6,14 +6,23 @@ import Dashboard from "./Dashboard";
 function App() {
   const [user, setUser] = useState(null);
 
+  useEffect(() => {
+    // auto-login
+    fetch("/me").then((r) => {
+      if (r.ok) {
+        r.json().then((user) => setUser(user));
+      }
+    });
+  }, []);
+
   if (!user) return (
     <div className="App">
-      <Landing />
+      <Landing onLogin={setUser} />
     </div>
   )
   return (
     <div className="App">
-      <Dashboard />
+      <Dashboard setUser={setUser} />
     </div>
   )
 }

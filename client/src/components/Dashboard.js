@@ -3,7 +3,13 @@ import { Layout, Menu } from 'antd';
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 
-function Dashboard() {
+function Dashboard({ setUser }) {
+    function handleLogoutClick() {
+        fetch("/logout", { method: "DELETE" }).then((r) => {
+          if (r.ok) {
+            setUser(null);
+          }
+        })}
     return (
         <Layout className="box">
             <Header className="header" >
@@ -17,7 +23,7 @@ function Dashboard() {
                         <Menu.Item key={0}>Current Tabs</Menu.Item>
                         <Menu.Item key={1}>Start New Tab</Menu.Item>
                         <Menu.Item key={2}>Completed Tabs</Menu.Item>
-                        <Menu.Item key={3}>Logout</Menu.Item>
+                        <Menu.Item key={3} onClick={handleLogoutClick}>Logout</Menu.Item>
                     </Menu>
                 </Sider>
             <Layout>

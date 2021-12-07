@@ -2,7 +2,7 @@ import { Button, Space } from 'antd';
 import Login from './Login';
 import Registration from './Registration';
 
-function Landing() {
+function Landing({ onLogin }) {
 
     return (
         <div id="landing">
@@ -10,8 +10,8 @@ function Landing() {
             <h1 className="animate__animated animate__rubberBand animate__repeat-2">TAB-TAB-TAB</h1>
             <p>Spliting bills has never been this easy</p>
             <Space direction="vertical">
-                <Login />
-                <Registration />
+                <Login onLogin={onLogin} />
+                <Registration onLogin={onLogin} />
             </Space>
         </div>
     )

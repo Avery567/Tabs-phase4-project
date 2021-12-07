@@ -1,22 +1,41 @@
 import { Button, Modal, Form, Input } from 'antd';
 import { useState } from 'react';
 
-function Registration() {
+function Registration({ onLogin }) {
     const [isRsvpVisible, setRsvpVisible] = useState(false)
     const [rsvpInfo, setRsvpInfo] = useState({
-        username: "",
+        full_name: "",
         email: "",
         password: "",
-        passwordconfirmation: ""
+        password_confirmation: ""
     })
+    const [errors, setErrors] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
     function showRsvp() {
         setRsvpVisible(true)
     }
     function handleClose() {
         setRsvpVisible(false)
     }
+    console.log(rsvpInfo)
     function handleSubmit() {
-        console.log("yes")
+        // e.preventDefault()
+        setErrors([]);
+        setIsLoading(true);
+        fetch("/signup", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(rsvpInfo),
+          }).then((r) => {
+            setIsLoading(false);
+            if (r.ok) {
+              r.json().then((user) => onLogin(user));
+            } else {
+              r.json().then((err) => setErrors(err.errors));
+            }
+          });
     }
     function handleInputChange(e) {
         setRsvpInfo({
@@ -46,16 +65,16 @@ function Registration() {
                     onFinish={handleSubmit}
                 >
                     <Form.Item
-                        label="Username"
-                        name="username"
+                        label="Full Name"
+                        name="full_name"
                         rules={[
                         {
                             required: true,
-                            message: 'Please input your username!',
+                            message: 'Please input your full name!',
                         },
                         ]}
                     >
-                        <Input name="username" onChange={handleInputChange} />
+                        <Input name="full_name" onChange={handleInputChange} />
                     </Form.Item>
                     <Form.Item
                         label="Email"
@@ -92,7 +111,7 @@ function Registration() {
                         },
                         ]}
                     >
-                        <Input.Password name="passwordconfirmation" onChange={handleInputChange}  />
+                        <Input.Password name="password_confirmation" onChange={handleInputChange}  />
                     </Form.Item>
                     <Form.Item
                         wrapperCol={{
