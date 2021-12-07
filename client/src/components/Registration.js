@@ -17,7 +17,6 @@ function Registration({ onLogin }) {
     function handleClose() {
         setRsvpVisible(false)
     }
-    console.log(rsvpInfo)
     function handleSubmit() {
         // e.preventDefault()
         setErrors([]);
@@ -37,12 +36,10 @@ function Registration({ onLogin }) {
             }
           });
     }
-    console.log(errors)
     function handleInputChange(e) {
         setRsvpInfo({
             ...rsvpInfo, [e.target.name]:e.target.value
         })
-        console.log(rsvpInfo)
     }
     return (
         <>

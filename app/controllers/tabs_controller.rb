@@ -2,7 +2,7 @@ class TabsController < ApplicationController
 
     def index
         tabs = current_user.tabs
-        render json: tabs include: :items
+        render json: tabs
     end
 
     def show 

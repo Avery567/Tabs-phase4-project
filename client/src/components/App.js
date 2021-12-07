@@ -22,7 +22,7 @@ function App() {
   )
   return (
     <div className="App">
-      <Dashboard setUser={setUser} />
+      <Dashboard setUser={setUser} user={user} />
     </div>
   )
 }
