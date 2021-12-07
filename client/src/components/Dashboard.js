@@ -1,9 +1,9 @@
 import { Layout, Menu} from 'antd';
 import { SmileOutlined } from '@ant-design/icons';
 import { Routes, Route, Link } from "react-router-dom";
-import Current_tabs from './Current_tabs';
-import New_tab from './New_tab';
-import Completed_tabs from './Completed_tabs';
+import CurrentTabs from './CurrentTabs';
+import NewTab from './NewTab';
+import CompletedTabs from './CompletedTabs';
 
 const { Header, Content, Sider } = Layout;
 
@@ -46,9 +46,9 @@ function Dashboard({ setUser, user }) {
             <Layout>
                 <Content id='content'>
                     <Routes>
-                        <Route path="/" element={<Current_tabs />}></Route>
-                        <Route path="/new" element={<New_tab user={user} />}></Route>
-                        <Route path="/archieves" element={<Completed_tabs />}></Route>
+                        <Route path="/" element={<CurrentTabs user={user} />}></Route>
+                        <Route path="/new" element={<NewTab user={user} />}></Route>
+                        <Route path="/archieves" element={<CompletedTabs />}></Route>
                     </Routes>
                 </Content>
             </Layout>

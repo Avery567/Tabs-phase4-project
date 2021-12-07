@@ -86,3 +86,19 @@ body {
 #newtab .ant-form-item-required {
   font-size: 25px !important;
 }
+
+#currenttabs .ant-collapse {
+  width: 80%;
+  margin-left: 5rem;
+  font-family: 'Montserrat Alternates', sans-serif;
+  border: none;
+  background:transparent;
+}
+
+#currenttabs .ant-collapse .ant-collapse-header {
+  font-size: 24px !important;
+}
+
+#tabcard {
+  padding-left: 5rem;
+}
