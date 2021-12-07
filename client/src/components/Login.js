@@ -1,7 +1,7 @@
 import { Button, Modal, Form, Input } from 'antd';
 import { useState } from 'react';
 
-function Login() {
+function Login({onLogin}) {
     const [isLoginVisible, setLoginVisible] = useState(false)
     const [loginInfo, setLoginInfo] = useState({
         username: "",

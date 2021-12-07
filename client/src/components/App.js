@@ -5,14 +5,15 @@ import Dashboard from "./Dashboard";
 
 function App() {
   const [user, setUser] = useState(null);
+
   if (!user) return (
     <div className="App">
-      <Dashboard />
+      <Landing />
     </div>
   )
   return (
     <div className="App">
-      <Landing />
+      <Dashboard />
     </div>
   )
 }

@@ -1,7 +1,7 @@
 import { Button, Modal, Form, Input } from 'antd';
 import { useState } from 'react';
 
-function Registration() {
+function Registration({onLogin}) {
     const [isRsvpVisible, setRsvpVisible] = useState(false)
     const [rsvpInfo, setRsvpInfo] = useState({
         username: "",
