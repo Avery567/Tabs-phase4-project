@@ -1,3 +1,3 @@
 class TabSerializer < ActiveModel::Serializer
-  attributes :id, :name, :user
+  attributes :id, :name, :completed
 end
