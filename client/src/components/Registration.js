@@ -1,4 +1,4 @@
-import { Button, Modal, Form, Input } from 'antd';
+import { Button, Modal, Form, Input, Alert } from 'antd';
 import { useState } from 'react';
 
 function Registration({ onLogin }) {
@@ -37,6 +37,7 @@ function Registration({ onLogin }) {
             }
           });
     }
+    console.log(errors)
     function handleInputChange(e) {
         setRsvpInfo({
             ...rsvpInfo, [e.target.name]:e.target.value
@@ -53,6 +54,17 @@ function Registration({ onLogin }) {
                 onOk={handleClose}
                 footer={null}
             >
+                {errors.length>0?
+                <div>
+                    <Alert message={
+                        errors.map((err)=>{
+                            return(
+                                <li>{err}</li>
+                            )
+                        })
+                    } type="error" />
+                    <p></p>
+                </div>:null}
                 <Form
                     name="registration"
                     labelCol={{

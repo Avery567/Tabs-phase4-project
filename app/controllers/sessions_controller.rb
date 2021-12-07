@@ -5,13 +5,14 @@ class SessionsController < ApplicationController
         user = User.find_by(email: params[:email])
         if user&.authenticate(params[:password])
           session[:user_id] = user.id 
-          render json: user, status: :ok
+          render json: user, status: :created
         else 
-          render json: "Invalid Credentials. Try again!", status: :unauthorized 
+          render json: { errors: ["Invalid Credentials. Try again!"]}, status: :unauthorized 
         end
       end
     
       def destroy
+        return render json: { errors: ["Not authorized"] }, status: :unauthorized unless session.include? :user_id
         session.delete :user_id
         head :no_content
       end

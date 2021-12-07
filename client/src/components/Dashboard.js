@@ -1,6 +1,5 @@
 import { Layout, Menu } from 'antd';
 
-const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 
 function Dashboard({ setUser }) {

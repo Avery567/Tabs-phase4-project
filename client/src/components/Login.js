@@ -1,4 +1,4 @@
-import { Button, Modal, Form, Input } from 'antd';
+import { Button, Modal, Form, Input, Alert } from 'antd';
 import { useState } from 'react';
 
 function Login({ onLogin }) {
@@ -35,7 +35,6 @@ function Login({ onLogin }) {
         setLoginInfo({
             ...loginInfo, [e.target.name]:e.target.value
         })
-        console.log(loginInfo)
     }
     return (
         <>
@@ -47,6 +46,13 @@ function Login({ onLogin }) {
                 onOk={handleClose}
                 footer={null}
             >
+                {errors.length>0?
+                <div>
+                    {errors.map((err,index)=>{
+                        return (<Alert key={index} message={err} type="error" />)
+                    })}
+                    <p></p>
+                </div>:null}
                 <Form
                     name="login"
                     labelCol={{
