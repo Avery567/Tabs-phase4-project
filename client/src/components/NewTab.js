@@ -2,7 +2,6 @@ import { Form, Input, Button, message } from 'antd';
 import { useState } from 'react';
 import DebounceSelect from './DebounceSelect';
 
-
 function NewTab({ user }) {
     const [value, setValue] = useState([]);
     const [tabName, setTabName] = useState("")
@@ -72,7 +71,7 @@ function NewTab({ user }) {
         })
         form.resetFields()
     }
-    
+    console.log(value)
     
     return (
         <div id="newtab">
