@@ -2,20 +2,18 @@ import { Form, Input, Button, message } from 'antd';
 import { useState } from 'react';
 import DebounceSelect from './DebounceSelect';
 
-
 function NewTab({ user }) {
     const [value, setValue] = useState([]);
     const [tabName, setTabName] = useState("")
     const [form] = Form.useForm();
     const [errors, setErrors] = useState([]);
-    async function fetchUserList() {
+    async function fetchUserList(value) {
         return fetch("/users")
             .then(r=>r.json())
             .then((data)=>
                 data.map((user)=>({
                     label: `${user.id} ${user.full_name}`,
-                    key: user.id,
-                    value: user.email,
+                    value: user.email
                 }))
             )
     }
@@ -49,8 +47,10 @@ function NewTab({ user }) {
       };
 
     function handleSubmit2(tab_id) {
-        const users = value.map(v=>{return(v.label.split(' ')
-        [0])})
+        const users = value.map(v=>{return(v.label.split(' ')[0])})
+        if (!users.includes(user.id)) {
+            users.push(user.id)
+        }
         users.map((user)=>{
             fetch("/usertabs", {
                 method: "POST",

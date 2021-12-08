@@ -1,15 +1,18 @@
-import { Button, Space, Modal, InputNumber, Form, Input, message } from 'antd';
+import { Button, Space, Modal, InputNumber, Form, Input, message, List } from 'antd';
 import { useState } from 'react';
 import { PlusOutlined, DeleteOutlined , DollarCircleOutlined  } from '@ant-design/icons';
 import { Popconfirm } from 'antd';
+import ItemCard from './ItemCard';
 
 function TabCard({ tab, user, handleDeleteTab }) {
+  
     // line 8: state for popconfirm of delete function
     const [visible, setVisible] = useState(false);
     const [isModalVisible, setIsModalVisible] = useState(false)
     const [itemName, setItemName] = useState('')
     const [itemValue, setItemValue] = useState(0)
     const [errors, setErrors] = useState([]);
+    const [form] = Form.useForm();
     const [itemsToDisplay, setItemsToDisplay] = useState(tab.items)
     console.log(itemsToDisplay)
     const showModal = () => {
@@ -23,10 +26,24 @@ function TabCard({ tab, user, handleDeleteTab }) {
       const handleCancel = () => {
         setIsModalVisible(false);
       };
+
+      function handleDelete(id) {
+          fetch(`/items/${id}`,{
+              method:"DELETE"
+          })
+          .then(r=>{
+            if (r.ok) {
+                let newList = itemsToDisplay.filter((item)=>{
+                    return (item.id!==id)
+                })
+                setItemsToDisplay(newList)
+            }
+          })
+      }
       const success = () => {
         message.success('New Item Created!');
       };
-
+      console.log(itemsToDisplay)
       function handleSubmit() {
         fetch("/items", {
             method: "POST",
@@ -45,11 +62,13 @@ function TabCard({ tab, user, handleDeleteTab }) {
                     r.json().then((new_item=>{
                         setItemsToDisplay([...itemsToDisplay, new_item])
                         success()
+                        setIsModalVisible(false)
                     }))
                 } else {
                     r.json().then((err)=>setErrors([...errors, err.errors]))
                 }
             })
+        form.resetFields()
       }
     // delete function starts here: 
     const showPopconfirm = () => {
@@ -78,6 +97,7 @@ function TabCard({ tab, user, handleDeleteTab }) {
                 <Modal title="Create New Item" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} footer={null}>
                     <Form
                         name="newitem"
+                        form={form}
                         labelCol={{
                             span: 6,
                         }}
@@ -140,14 +160,17 @@ function TabCard({ tab, user, handleDeleteTab }) {
                     <DollarCircleOutlined />
                     Settle
                 </Button>
+                You Currently owe:
             </Space>
-            {itemsToDisplay.length>0? 
-            <div>
-                {itemsToDisplay.map((item,index)=>{
-                    <p key={index}>{item.name}</p>
-                })}
-            </div>:
-            <h2>No item at the moment, please add new items!</h2>}
+            <div id="itemcard">
+                {itemsToDisplay.length>0? 
+                <Space direction="vertical">
+                    {itemsToDisplay.map((item)=>{
+                        return (<ItemCard key={item.id} item={item} handleDelete={handleDelete} />)
+                    })}
+                </Space>:
+                <h2>No item at the moment, please add new items!</h2>}
+            </div>
         </div>
     )
 }
