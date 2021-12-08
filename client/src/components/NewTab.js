@@ -2,7 +2,7 @@ import { Form, Input, Button, message } from 'antd';
 import { useState } from 'react';
 import DebounceSelect from './DebounceSelect';
 
-function NewTab({ user }) {
+function NewTab({ curr_user }) {
     const [value, setValue] = useState([]);
     const [tabName, setTabName] = useState("")
     const [form] = Form.useForm();
@@ -20,6 +20,7 @@ function NewTab({ user }) {
     function handleInputChange(e) {
         setTabName(e.target.value)
     }
+    console.log(curr_user.id)
     function handleSubmit() {
         fetch("/tabs", {
             method: "POST",
@@ -48,8 +49,8 @@ function NewTab({ user }) {
 
     function handleSubmit2(tab_id) {
         const users = value.map(v=>{return(v.label.split(' ')[0])})
-        if (!users.includes(user.id)) {
-            users.push(user.id)
+        if (users.indexOf(curr_user.id.toString())===-1) {
+            users.push(curr_user.id.toString())
         }
         users.map((user)=>{
             fetch("/usertabs", {
@@ -71,8 +72,6 @@ function NewTab({ user }) {
         })
         form.resetFields()
     }
-    console.log(value)
-    
     return (
         <div id="newtab">
             <Form

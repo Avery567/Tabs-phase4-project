@@ -115,3 +115,7 @@ body {
 #itemcard .ant-space .ant-space-item:hover {
   text-decoration: underline;
 }
+
+.ant-btn-primary {
+  color: black !important;
+}

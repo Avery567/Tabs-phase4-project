@@ -150,6 +150,7 @@ function TabCard({ tab, user, handleDeleteTab }) {
                     visible={visible}
                     onConfirm={handleOkToDelete}
                     onCancel={handleCancelDelete}
+                    okText="Yes"
                     >
                     <Button onClick={showPopconfirm}>
                         <DeleteOutlined  />

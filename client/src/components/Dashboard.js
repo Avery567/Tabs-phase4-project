@@ -47,7 +47,7 @@ function Dashboard({ setUser, user }) {
                 <Content id='content'>
                     <Routes>
                         <Route path="/" element={<CurrentTabs user={user} />}></Route>
-                        <Route path="/new" element={<NewTab user={user} />}></Route>
+                        <Route path="/new" element={<NewTab curr_user={user} />}></Route>
                         <Route path="/archieves" element={<CompletedTabs />}></Route>
                     </Routes>
                 </Content>
