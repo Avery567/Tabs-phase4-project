@@ -49,7 +49,8 @@ function NewTab({ user }) {
       };
 
     function handleSubmit2(tab_id) {
-        const users = value.map(v=>{return(v.label[0])})
+        const users = value.map(v=>{return(v.label.split(' ')
+        [0])})
         users.map((user)=>{
             fetch("/usertabs", {
                 method: "POST",
@@ -70,7 +71,7 @@ function NewTab({ user }) {
         })
         form.resetFields()
     }
-    
+    console.log(value)
     
     return (
         <div id="newtab">

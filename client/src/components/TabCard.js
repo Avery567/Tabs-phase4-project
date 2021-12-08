@@ -1,9 +1,11 @@
 import { Button, Space, Modal, InputNumber, Form, Input, message } from 'antd';
 import { useState } from 'react';
 import { PlusOutlined, DeleteOutlined , DollarCircleOutlined  } from '@ant-design/icons';
+import { Popconfirm } from 'antd';
 
-
-function TabCard({ tab, user }) {
+function TabCard({ tab, user, handleDeleteTab }) {
+    // line 8: state for popconfirm of delete function
+    const [visible, setVisible] = useState(false);
     const [isModalVisible, setIsModalVisible] = useState(false)
     const [itemName, setItemName] = useState('')
     const [itemValue, setItemValue] = useState(0)
@@ -49,6 +51,23 @@ function TabCard({ tab, user }) {
                 }
             })
       }
+    // delete function starts here: 
+    const showPopconfirm = () => {
+        setVisible(true);   
+    };
+
+    const handleOkToDelete = () => {
+        setTimeout(() => {
+            setVisible(false);
+        }, 2000);
+        handleDeleteTab(tab.id);
+    };
+
+    const handleCancelDelete = () => {
+        console.log('Clicked cancel button');
+        setVisible(false);
+    };
+
     return (
         <div id="tabcard">
             <Space>
@@ -106,10 +125,17 @@ function TabCard({ tab, user }) {
                         </Form.Item>
                     </Form>
                 </Modal>
-                <Button>
-                    <DeleteOutlined  />
-                    Delete Tab
-                </Button>
+                <Popconfirm
+                    title="Are you sure you want to delete this tab? All items will be deleted all together. Think twice!!"
+                    visible={visible}
+                    onConfirm={handleOkToDelete}
+                    onCancel={handleCancelDelete}
+                    >
+                    <Button onClick={showPopconfirm}>
+                        <DeleteOutlined  />
+                        Delete Tab
+                    </Button>
+                </Popconfirm>
                 <Button>
                     <DollarCircleOutlined />
                     Settle
