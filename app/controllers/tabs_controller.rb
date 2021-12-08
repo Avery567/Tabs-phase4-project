@@ -32,7 +32,7 @@ class TabsController < ApplicationController
     private 
 
     def tab_params 
-        params.permit(:name)
+        params.permit(:name, :completed)
     end
 
 end

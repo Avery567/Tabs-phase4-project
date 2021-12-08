@@ -1,7 +1,7 @@
 import { Button, Space, Modal, InputNumber, Form, Input, message, List } from 'antd';
 import { useState } from 'react';
-import { PlusOutlined, DeleteOutlined , DollarCircleOutlined  } from '@ant-design/icons';
-import { Popconfirm } from 'antd';
+import { PlusOutlined, DeleteOutlined , DollarCircleOutlined, UserOutlined, UsergroupDeleteOutlined  } from '@ant-design/icons';
+import { Popconfirm, Popover, Avatar } from 'antd';
 import ItemCard from './ItemCard';
 
 function TabCard({ tab, user, handleDeleteTab }) {
@@ -14,7 +14,6 @@ function TabCard({ tab, user, handleDeleteTab }) {
     const [errors, setErrors] = useState([]);
     const [form] = Form.useForm();
     const [itemsToDisplay, setItemsToDisplay] = useState(tab.items)
-    console.log(itemsToDisplay)
     const showModal = () => {
         setIsModalVisible(true);
       };
@@ -26,7 +25,6 @@ function TabCard({ tab, user, handleDeleteTab }) {
       const handleCancel = () => {
         setIsModalVisible(false);
       };
-
       function handleDelete(id) {
           fetch(`/items/${id}`,{
               method:"DELETE"
@@ -87,6 +85,17 @@ function TabCard({ tab, user, handleDeleteTab }) {
         setVisible(false);
     };
 
+    const participants = (
+        <Space direction="vertical">
+            {tab.users.map((user)=>{
+                return (<Space key={user.id}><Avatar icon={<UserOutlined />} />{user.full_name}</Space>)
+            })}
+        </Space>
+    )
+    const ownAmount = (
+        ((itemsToDisplay.reduce(function (acc, item) { return acc+item.price},0)-
+        itemsToDisplay.filter(item=>item.user_id===user.id).reduce(function (acc, item) { return acc+item.price},0))/tab.users.length).toFixed(2)
+    )
     return (
         <div id="tabcard">
             <Space>
@@ -161,7 +170,13 @@ function TabCard({ tab, user, handleDeleteTab }) {
                     <DollarCircleOutlined />
                     Settle
                 </Button>
-                You Currently owe:
+                <Popover placement="bottomLeft" content={participants} trigger="click">
+                    <Button>
+                        <UsergroupDeleteOutlined />
+                        Participants
+                    </Button>
+                </Popover>
+                You Currently owe:  ${ownAmount}
             </Space>
             <div id="itemcard">
                 {itemsToDisplay.length>0? 

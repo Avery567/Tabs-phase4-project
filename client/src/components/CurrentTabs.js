@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
-import { Collapse, Button } from 'antd';
-import { DeleteOutlined } from '@ant-design/icons';
+import { Collapse } from 'antd';
 import TabCard from "./TabCard";
 
 function CurrentTabs({ user }) {
@@ -8,7 +7,12 @@ function CurrentTabs({ user }) {
     const [tabs, setTabs] = useState([])
 
     useEffect(()=>{
-        fetch('/tabs').then(r=>r.json()).then(data=>setTabs(data))
+        fetch('/tabs').then(r=>r.json()).then(data=>{
+            let incomplete_tabs = data.filter(tab=>{
+                return tab.completed!==true
+            })
+            setTabs(incomplete_tabs)
+        })
     },[])
     console.log(tabs)
 
