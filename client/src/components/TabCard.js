@@ -14,7 +14,7 @@ function TabCard({ tab, user, handleDeleteTab }) {
     const [errors, setErrors] = useState([]);
     const [form] = Form.useForm();
     const [itemsToDisplay, setItemsToDisplay] = useState(tab.items)
-    console.log(itemsToDisplay)
+    // console.log(itemsToDisplay)
     const showModal = () => {
         setIsModalVisible(true);
       };
@@ -43,7 +43,7 @@ function TabCard({ tab, user, handleDeleteTab }) {
       const success = () => {
         message.success('New Item Created!');
       };
-      console.log(itemsToDisplay)
+    //   console.log(itemsToDisplay)
       function handleSubmit() {
         fetch("/items", {
             method: "POST",

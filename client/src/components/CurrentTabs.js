@@ -8,9 +8,12 @@ function CurrentTabs({ user }) {
     const [tabs, setTabs] = useState([])
 
     useEffect(()=>{
-        fetch('/tabs').then(r=>r.json()).then(data=>setTabs(data))
+        fetch('/tabs')
+        .then(r=>r.json())
+        .then(tabs=>setTabs(
+            tabs.filter(tab => tab.completed == false)
+            ))
     },[])
-    console.log(tabs)
 
     const handleDeleteTab = (id) => {
         fetch(`/tabs/${id}`, {
