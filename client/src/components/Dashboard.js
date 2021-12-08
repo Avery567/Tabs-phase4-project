@@ -20,7 +20,7 @@ function Dashboard({ setUser, user }) {
                 <h1>Tab-Tab-Tab</h1>
             </Header>
             <Layout>
-                <Sider width={250} id="sidebar">
+                <Sider width={300} id="sidebar">
                     <Menu
                     mode="inline"
                     >

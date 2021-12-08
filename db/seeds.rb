@@ -18,8 +18,8 @@ User.create!(
     id: id,
     full_name: Faker::Name.name,
     email: Faker::Internet.email,
-    password: "password123@@",
-    password_confirmation: "password123@@",
+    password: "Password123@!",
+    password_confirmation: "Password123@!",
 )
 
 end

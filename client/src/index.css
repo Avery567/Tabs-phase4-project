@@ -102,3 +102,16 @@ body {
 #tabcard {
   padding-left: 5rem;
 }
+
+#itemcard {
+  padding-top: 1rem;
+  width: 60%;
+}
+
+#itemcard .ant-space {
+  width: 130%;
+}
+
+#itemcard .ant-space .ant-space-item:hover {
+  text-decoration: underline;
+}
