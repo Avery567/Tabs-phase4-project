@@ -1,10 +1,10 @@
-import { Button, Space, Modal, InputNumber, Form, Input, message, List } from 'antd';
+import { Button, Space, Modal, InputNumber, Form, Input, message } from 'antd';
 import { useState } from 'react';
-import { PlusOutlined, DeleteOutlined , DollarCircleOutlined, UserOutlined, UsergroupDeleteOutlined  } from '@ant-design/icons';
+import { PlusOutlined, DeleteOutlined, ExclamationCircleOutlined,  DollarCircleOutlined, UserOutlined, UsergroupDeleteOutlined  } from '@ant-design/icons';
 import { Popconfirm, Popover, Avatar } from 'antd';
 import ItemCard from './ItemCard';
 
-function TabCard({ tab, user, handleDeleteTab }) {
+function TabCard({ tab, user, handleDeleteTab, handleSettle }) {
   
     // line 8: state for popconfirm of delete function
     const [visible, setVisible] = useState(false);
@@ -85,6 +85,19 @@ function TabCard({ tab, user, handleDeleteTab }) {
         setVisible(false);
     };
 
+    const { confirm } = Modal
+    function showConfirm() {
+        confirm({
+            title: "Are you sure settle this tab?",
+            icon: <ExclamationCircleOutlined />,
+            content: "Once you settle, no one will be able to add items and you can see bill splitting result in completed tabs section.",
+            okText: "Yes",
+            okType: "primary",
+            onOk(){
+                handleSettle(tab.id)
+            }
+        })
+    }
     const participants = (
         <Space direction="vertical">
             {tab.users.map((user)=>{
@@ -166,7 +179,7 @@ function TabCard({ tab, user, handleDeleteTab }) {
                         Delete Tab
                     </Button>
                 </Popconfirm>
-                <Button>
+                <Button onClick={showConfirm}>
                     <DollarCircleOutlined />
                     Settle
                 </Button>

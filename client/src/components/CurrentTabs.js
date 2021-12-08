@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Collapse } from 'antd';
+import { Collapse, message } from 'antd';
 import TabCard from "./TabCard";
 
 function CurrentTabs({ user }) {
@@ -14,7 +14,6 @@ function CurrentTabs({ user }) {
             setTabs(incomplete_tabs)
         })
     },[])
-    console.log(tabs)
 
     const handleDeleteTab = (id) => {
         fetch(`/tabs/${id}`, {
@@ -26,6 +25,29 @@ function CurrentTabs({ user }) {
         .then(r=>r.json())
         .then(setTabs(tabs.filter(tab => tab.id !== id)))
     };
+    const success = () => {
+        message.success('Settle successful, check it out in Completed Tabs');
+      };
+
+    function handleSettle(id) {
+        fetch(`/tabs/${id}`,{
+            method: "PATCH",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                completed: true
+            })
+        }).then(r=>{
+            if (r.ok) {
+                let newTabs = tabs.filter(tab=>{
+                    return tab.id!==id
+                })
+                setTabs(newTabs)
+                success()
+            }
+        })
+    }
 
     return(
         <div id="currenttabs">
@@ -33,7 +55,7 @@ function CurrentTabs({ user }) {
                 {tabs.map(tab=>{
                     return (
                     <Panel header={tab.name} key={tab.id}>
-                        <TabCard user={user} tab={tab} handleDeleteTab={handleDeleteTab}/>
+                        <TabCard user={user} tab={tab} handleDeleteTab={handleDeleteTab} handleSettle={handleSettle}/>
                     </Panel>)
                 })}
             </Collapse>

@@ -19,13 +19,23 @@ class TabsController < ApplicationController
         end 
     end
 
+    def update
+        tab = Tab.find_by(id: params[:id])
+        if tab 
+            tab.update(tab_params)
+            render json:tab
+        else  
+            render json: { errors: ["Tab does not exist"]}, status: :not_found 
+        end
+    end
+
     def destroy 
         tab = Tab.find_by(id: params[:id])
         if tab 
             tab.destroy
             head :no_content 
         else  
-            render json: "Tab does not exist", status: :not_found 
+            render json: { errors: ["Tab does not exist"]}, status: :not_found 
         end
     end
 
