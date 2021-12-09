@@ -123,3 +123,10 @@ body {
 #singleitem {
   font-size: 20px;
 }
+
+#currenttabs .ant-collapse-content {
+  border: none;
+  padding-left: 3rem;
+  font-size: larger;
+  background: rgba(202,223,192,1);
+}

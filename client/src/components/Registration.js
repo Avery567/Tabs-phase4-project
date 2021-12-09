@@ -51,7 +51,7 @@ function Registration({ onLogin }) {
                 onOk={handleClose}
                 footer={null}
             >
-                {errors.length>0?
+                {errors&&errors.length>0?
                 <div>
                     <Alert message={
                         errors.map((err)=>{
