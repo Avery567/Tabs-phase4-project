@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class Api::UsersController < ApplicationController
     skip_before_action :is_authenticated, only: [:create, :show]
 
     def index

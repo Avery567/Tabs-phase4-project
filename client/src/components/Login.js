@@ -16,7 +16,7 @@ function Login({ onLogin }) {
         setLoginVisible(false)
     }
     function handleSubmit() {
-        fetch("/login", {
+        fetch("/api/login", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

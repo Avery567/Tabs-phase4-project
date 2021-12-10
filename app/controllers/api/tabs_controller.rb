@@ -1,4 +1,4 @@
-class TabsController < ApplicationController
+class Api::TabsController < ApplicationController
 
     def index
         tabs = current_user.tabs

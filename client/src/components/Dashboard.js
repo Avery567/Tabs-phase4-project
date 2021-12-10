@@ -9,7 +9,7 @@ const { Header, Content, Sider } = Layout;
 
 function Dashboard({ setUser, user }) {
     function handleLogoutClick() {
-        fetch("/logout", { method: "DELETE" }).then((r) => {
+        fetch("/api/logout", { method: "DELETE" }).then((r) => {
           if (r.ok) {
             setUser(null);
           }

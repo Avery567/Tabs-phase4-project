@@ -1,4 +1,4 @@
-class UsertabsController < ApplicationController
+class Api::UsertabsController < ApplicationController
 
     def index
         usertabs = Usertab.all

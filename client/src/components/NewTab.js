@@ -8,7 +8,7 @@ function NewTab({ curr_user }) {
     const [form] = Form.useForm();
     const [errors, setErrors] = useState([]);
     async function fetchUserList(value) {
-        return fetch("/users")
+        return fetch("/api/users")
             .then(r=>r.json())
             .then((data)=>
                 data.map((user)=>({
@@ -22,7 +22,7 @@ function NewTab({ curr_user }) {
     }
     console.log(curr_user.id)
     function handleSubmit() {
-        fetch("/tabs", {
+        fetch("/api/tabs", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -53,7 +53,7 @@ function NewTab({ curr_user }) {
             users.push(curr_user.id.toString())
         }
         users.map((user)=>{
-            fetch("/usertabs", {
+            fetch("/api/usertabs", {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",

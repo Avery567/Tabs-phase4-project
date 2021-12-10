@@ -7,7 +7,7 @@ function CurrentTabs({ user }) {
     const [tabs, setTabs] = useState([])
 
     useEffect(()=>{
-        fetch('/tabs').then(r=>r.json()).then(data=>{
+        fetch('/api/tabs').then(r=>r.json()).then(data=>{
             let incomplete_tabs = data.filter(tab=>{
                 return tab.completed!==true
             })
@@ -16,7 +16,7 @@ function CurrentTabs({ user }) {
     },[])
 
     const handleDeleteTab = (id) => {
-        fetch(`/tabs/${id}`, {
+        fetch(`/api/tabs/${id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
@@ -30,7 +30,7 @@ function CurrentTabs({ user }) {
       };
 
     function handleSettle(id) {
-        fetch(`/tabs/${id}`,{
+        fetch(`/api/tabs/${id}`,{
             method: "PATCH",
             headers: {
                 'Content-Type': 'application/json'

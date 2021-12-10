@@ -26,7 +26,7 @@ function TabCard({ tab, user, handleDeleteTab, handleSettle }) {
         setIsModalVisible(false);
       };
       function handleDelete(id) {
-          fetch(`/items/${id}`,{
+          fetch(`/api/items/${id}`,{
               method:"DELETE"
           })
           .then(r=>{
@@ -43,7 +43,7 @@ function TabCard({ tab, user, handleDeleteTab, handleSettle }) {
       };
       console.log(itemsToDisplay)
       function handleSubmit() {
-        fetch("/items", {
+        fetch("/api/items", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

@@ -7,7 +7,7 @@ function CompletedTabs({ user }) {
     const [tabs, setTabs] = useState([])
 
     useEffect(()=>{
-        fetch('/tabs').then(r=>r.json()).then(data=>{
+        fetch('/api/tabs').then(r=>r.json()).then(data=>{
             let incomplete_tabs = data.filter(tab=>{
                 return tab.completed===true
             })
