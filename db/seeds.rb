@@ -25,34 +25,34 @@ end
 puts "Done Seeding Users!"
 
 
-# (1..50).each do |id|
-# Tab.create!(
-#     name: Faker::Marketing.unique.buzzwords,
-# )
+(1..50).each do |id|
+Tab.create!(
+    name: Faker::Marketing.unique.buzzwords,
+)
 
-# end
+end
 
-# puts "Done Seeding Tabs!"
+puts "Done Seeding Tabs!"
 
-# (1..50).each do |id|
-#     Usertab.create!(
-#         user_id: Faker::Number.within(range: 1..100),
-#         tab_id: Faker::Number.within(range: 1..50),
-#     )
+(1..50).each do |id|
+    Usertab.create!(
+        user_id: Faker::Number.within(range: 1..100),
+        tab_id: Faker::Number.within(range: 1..50),
+    )
 
-# end
+end
 
-# puts "Done Seeding Usertabs!"
+puts "Done Seeding Usertabs!"
 
-# (1..500).each do |id|
-#     Item.create!(
-#         name: Faker::Commerce.product_name,
-#         price: Faker::Commerce.price(range: 0..10000.00, as_string: true),
-#         user_id: Faker::Number.within(range: 1..100),
-#         tab_id: Faker::Number.within(range: 1..50),
+(1..500).each do |id|
+    Item.create!(
+        name: Faker::Commerce.product_name,
+        price: Faker::Commerce.price(range: 0..10000.00, as_string: true),
+        user_id: Faker::Number.within(range: 1..100),
+        tab_id: Faker::Number.within(range: 1..50),
         
-#     )
+    )
 
-# end
+end
 
-# puts "Done Seeding Items!"
+puts "Done Seeding Items!"
